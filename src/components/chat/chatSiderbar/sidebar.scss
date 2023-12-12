@@ -1,0 +1,52 @@
+.side-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    padding: 20px 0;
+    color: var(--font-main);
+    user-select: none;
+    
+    .avatar {
+      position: relative;
+      box-sizing: border-box;
+      line-height: 1;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      user-select: none;
+      width: 50px;
+      height: 50px;
+    }
+    
+    .menu {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+  
+  .avatar-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  .tool-icons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin-top: 16px;
+  
+  }
+  
+  .tool-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }

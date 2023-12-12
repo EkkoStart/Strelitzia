@@ -1,0 +1,83 @@
+.user-list-box{
+    position: relative;
+    margin-left: 20px;
+    padding: 20px 20px 20px 0;
+  }
+  .user-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    row-gap: 2px;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
+    margin-top: 8px;
+    overflow: hidden;
+    overflow-y: auto;
+  
+    overscroll-behavior-y: contain;
+    list-style-type: none;
+    }
+  
+    .user-list-wrapper {
+      position: absolute;
+      top: 0;
+      right: -16px;
+      bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      height: 100%;
+      padding: 8px 12px;
+      background-color: var(--background-secondary);
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      transform: translateX(100%);
+  
+      &.show {
+        transform: translateX(-16px);
+      }
+    }
+    .user-list {
+      .user-list-item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 5px 2px;
+        cursor: default;
+        border-radius: 4px;
+    
+        &:hover,
+        &:focus {
+          background-color: var(--background-mask);
+        }
+    
+        .avatar {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    @media only screen and (min-width: 640px) {
+        .user-list-wrapper {
+          position: relative;
+          top: 0;
+          right: 0;
+      
+         
+          transform: translateX(0);
+      
+          &.show {
+            transform: translateX(0);
+          }
+        }
+      
+        .user-list-mask.show {
+          position: relative;
+          top: initial;
+          right: initial;
+          bottom: initial;
+          left: initial;
+          background-color: transparent;
+        }
+      }

@@ -1,0 +1,72 @@
+.file {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 500px;
+    flex-direction: column;
+    min-height: 70vh;
+}
+
+.type {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  
+    margin-top: 5%;
+}
+.active{
+    background-color: #b2eed4;
+}
+.file i {
+    font-size: 4rem;
+    color: plum;
+}
+
+.file span {
+    font-size: 1rem;
+}
+
+.file input {
+    cursor: pointer;
+    opacity: 0;
+    width: 30rem;
+    height: 20rem;
+    background: red;
+    z-index: 555;
+}
+
+.file .border {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 30rem;
+    height: 20rem;
+    background: #fff;
+    border-radius: 15px;
+    border: 2px solid;
+}
+
+.se-button button{
+    height: 29px;
+    width: 59px;
+    border-radius: 20px;
+    margin: 10px 10px;
+    cursor: pointer;
+    transition: .3s;
+    border: none;
+}
+
+.file button {
+    height: 49px;
+    width: 149px;
+    border-radius: 49px;
+    margin-top: 1rem;
+    border-radius: 20px;
+    color: green;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+

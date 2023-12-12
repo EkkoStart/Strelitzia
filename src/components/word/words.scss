@@ -1,0 +1,129 @@
+.word-container {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    position: relative;
+    justify-content: center;
+    background-color: #eaeaea;
+ 
+}
+
+
+.word-center {
+    width: 60%;
+ 
+    padding: 2rem;
+   
+}
+.card{
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+    background-color: #ffffff;
+}
+.word-list{
+    border-radius: 10px;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    margin-top: 1.5rem;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+}
+h2{
+    margin-bottom: 10px;
+    color:#34495e;
+}
+.word-container .input {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.input textarea {
+    vertical-align: top;
+    outline: none;
+    text-decoration: none;
+    border: 1px dashed #dedede;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 100%;
+    max-height: 100%;
+    resize: none;
+}
+
+.word-container button {
+    align-items: center;
+    height: 40px;
+    width: 140px;
+    font-weight: 600;
+    border-radius: 20px;
+    margin: 1rem 0;
+    cursor: pointer;
+    position: relative;
+    left: 40%;
+    border: 1px solid #ededed;
+}
+
+.word-content {
+    position: relative;
+    display: flex;
+    margin: 2rem 0;
+    height: 120px;
+    width: 100%;
+    box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
+    0 -15px 35px rgba(0, 0, 0, 0.1),
+    0 15px 35px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.list p{
+    padding: 0 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+}
+.top .name{
+    color: #22abfa;
+    font-weight: 600;
+}
+.img {
+    max-height: 100px;
+}
+
+.img img {
+    padding: 1rem 0;
+    width: auto;
+    height: 100%;
+}
+
+@media  (max-width:750px) {
+    .word-center{
+        width: 100%;
+        padding: 0;
+        padding-top: 2rem;
+    }
+
+
+}
+
+@media (max-width:450px) {
+    .word-container button{
+        width: 100px;
+        left: 30%;
+    }
+    h2{
+        font-size: 1rem;
+    }
+    .input textarea::placeholder{
+        font-size: .5rem;
+    }
+    .word-list{
+        padding: 1rem;
+    }
+ 
+}
