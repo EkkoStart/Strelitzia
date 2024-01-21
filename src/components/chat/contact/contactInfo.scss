@@ -1,0 +1,42 @@
+.showInfo{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5rem;
+    margin-left: 3rem;
+}
+.search-wrapper{
+    display: flex;
+    width: 50%;
+    margin-top: 2rem;
+    
+}
+.search-btn{
+    width: 50px;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 10px;
+    background-color: var(--background-2);
+}
+.showInfo-uid{
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+.showInfo-username{
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+.showInfo.btn{
+    margin: 1rem;
+
+}
+.add-btn{
+    margin-right: 10px;
+}
+.add-btn,.del-btn{
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: var(--background-1);
+    cursor: pointer;
+}

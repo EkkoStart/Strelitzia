@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
 import {login,getInfo,register} from '@/api/login'
-import {setToken,getToken,removeToken,setId,getId} from '@/utils/auth'
+import {setToken,getToken,removeToken} from '@/utils/auth'
 import { getCount,upFile } from '../api/upFile'
 
 const defaultState = {
-  id: getId(),
+  id:0,
   username: '',
   avatar: '',
   token: getToken(),
@@ -56,7 +56,6 @@ export default createStore({
             }
             const data = res.data.data
             setToken(data.token)
-            setId(data.id)
             commit('SET_USERNAME',data.username)
             commit('SET_AVATAR',data.head)
             commit('SET_TOKEN',data.token);
@@ -68,12 +67,9 @@ export default createStore({
       })
     },
     Register({commit},userInfo){
-      const username=userInfo.username;
-      const password=userInfo.password;
-      const phone =userInfo.phone;
       return new Promise((resolve, reject) => {
-        register(username,password,phone).then(res =>{
-            if(res.data.code == 40000){
+        register(userInfo).then(res =>{
+            if(res.data.code != 1){
               reject(res.data.msg)
             }
             resolve(res);
@@ -95,6 +91,7 @@ export default createStore({
             commit('SET_AVATAR',data.avatar)
             resolve(res.data);
           }
+          else reject()
         }).catch(error =>{
             reject(error)
       })

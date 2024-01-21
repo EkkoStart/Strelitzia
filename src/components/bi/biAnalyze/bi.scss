@@ -1,0 +1,51 @@
+
+.bi-content-wrapper{
+    height: 650px;
+   
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+.res-wrapper{
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    transition: .3s ease-in-out;
+}
+.example-wrapper{
+    max-height: 650px;
+    padding-left: 50px;
+}
+.charts{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 40% 60%; /* 第一行高度自适应，第二行高度自适应 */
+    grid-template-columns: 50% 50%; /* 第一列宽度自适应，第二列宽度自适应 */
+    overflow: hidden;
+}
+.chart1{
+    width: 100%;
+    height: 100%;
+    transition: .3s ease-in-out;
+}
+.res-chart{
+    flex:2;
+    min-height: 300px;
+    transition: .3s ease-in-out;
+}
+.chart-wrapper{
+    width: 100%;
+    height: 100%;
+    transition: .3s ease-in-out;
+}
+.chart{
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+}
+.anno{
+    font-size: 18px;
+}
+.res-analyze{
+    flex:1;
+}

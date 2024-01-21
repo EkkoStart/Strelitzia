@@ -1,38 +1,50 @@
 <template>
-    <ImageBig
-      v-if="showImg"
-      @viewImg="handleviewImg"
-      :imgSrc="imgSrc"
-      class="img-big"
-    />
     <div class="pictures-container" >
         <div class="pictures" ref="waterfall">
-            <div class="picture-item"  v-for="(item,index) in imgUrls" :key="item.id" @click="bigScale(index)">
-                <img  v-lazy="item" class="picture">
-            </div>
+            <n-image-group>
+                <n-space>
+                    <n-image
+                        v-for="(src, index) in imgUrls"
+                        :key="index"
+                        width="250"
+                        height="250"
+                        lazy
+                        :src="src"
+                        :intersection-observer-options="{
+                            root: '#image-scroll-container'
+                        }"
+                        class="picture-item"
+                        >
+                        <template #placeholder>
+                            <div
+                            style="
+                                width: 100px;
+                                height: 100px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background-color: #0001;
+                            "
+                            >
+                            Loading
+                            </div>
+                        </template>
+                    </n-image>
+                </n-space>
+            </n-image-group>
         </div>
     </div>
 </template>
 <script setup>
-import {ref,onBeforeMount, defineAsyncComponent} from 'vue';
+import {NImage,NImageGroup,NSpace} from 'naive-ui'
+import {ref,onMounted, defineAsyncComponent} from 'vue';
 import {getPic} from '@/api/getItem'
-    
-    const ImageBig=defineAsyncComponent(()=>import('@/components/imgBig.vue'))
-    var imgUrls=ref([])
-    var showImg=ref(false)
-    var imgSrc=ref()
-    onBeforeMount(()=>{
-         getPic().then(res=>{
-            imgUrls.value=res.data
+    const imgUrls=ref([])
+    onMounted(async ()=>{
+        getPic().then(res=>{
+            imgUrls.value=res.data.data
          })
     })
-    function bigScale(index){
-        showImg.value=true
-        imgSrc.value=imgUrls.value[index]
-    }
-    function handleviewImg() {
-      showImg.value = false;
-    }
 </script>
 
 <style lang="scss" scoped>

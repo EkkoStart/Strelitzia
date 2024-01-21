@@ -1,22 +1,37 @@
 import router from './router';
 import store from './store';
-import {getToken,setToken} from '@/utils/auth.js'
+import {getToken} from '@/utils/auth.js'
+import { setToken } from './utils/auth';
+import { useMessage } from 'naive-ui'
 
-const token = getToken()
-
+const whiteList = ['/login','/index','/chat','/']
 router.beforeEach(async (to,from,next)=>{
-    if(to.path == '/login'){
-        store.dispatch('recordRouter',{
-            path: from.path
-        })
-    }
-    if(to.path != '/login'){
-        if(token != null && token!= '' &&token != undefined){
-            store.dispatch('GetInfo').catch(e=>{
-                console.log(e)
-                setToken('')
-            })
+
+    const hasToken = getToken() 
+    if (hasToken) {
+        if (to.path === '/login') { 
+            next({ path: '/' }) 
+        } else { 
+            const hasGetUserName = store.state.username 
+            const hasGetUserAvatar = store.state.avatar
+            if (hasGetUserName && hasGetUserAvatar) {  
+                next()  
+            } else {   
+                try {   
+                    await store.dispatch('GetInfo')
+                    next()   
+                } catch (error) { 
+                    console.log(error)
+                    setToken('')
+                    next(`/login?redirect=${to.path}`) 
+                }
+            }
+        }
+    } else {
+        if (whiteList.indexOf(to.path) !== -1) {  
+            next() 
+        } else {  
+            next(`/login?redirect=${to.path}`) 
         }
     }
-    next()
 })

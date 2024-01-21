@@ -12,22 +12,25 @@
                         <i class="ri-lock-2-line"></i>
                         <input type="password" placeholder="Password" v-model="userInfo.password" />
                     </div>
-                    <button class="btn solid" @click.prevent="handleLogin">登 录</button>
-                    <!-- <p class="social-text">Or Sign in with social platforms</p> -->
-                    <!-- <div class="social-media">
+                    <button class="btn solid" @click.prevent="handleLogin"
+                        ref="loginBtn" 
+                    >
+                        登 录</button>
+                    <p class="social-text">其他登录方式</p>
+                    <div class="social-media">
                         <a href="#" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
+                            <i class="ri-qq-line"></i>
                         </a>
                         <a href="#" class="social-icon">
-                            <i class="fab fa-twitter"></i>
+                            <i class="ri-wechat-2-line"></i>
                         </a>
                         <a href="#" class="social-icon">
-                            <i class="fab fa-google"></i>
+                            <i class="ri-github-line"></i>
                         </a>
                         <a href="#" class="social-icon">
-                            <i class="fab fa-linkedin-in"></i>
+                            <i class="ri-chat-3-line"></i>
                         </a>
-                    </div> -->
+                    </div>
                 </form>
                 <form class="sign-up-form" >
                     <h2 class="title">注 册</h2>
@@ -35,17 +38,24 @@
                         <i class="ri-user-heart-line"></i>
                         <input type="text" placeholder="Username" v-model="registerInfo.username" />
                     </div>
-                    <div class="input-field" prop="phone">
-                        <i class="ri-phone-line"></i>
-                        <input type="text" placeholder="Phone" v-model="registerInfo.phone" />
-                    </div>
                     <div class="input-field" prop="password">
                         <i class="ri-lock-2-line"></i>
                         <input type="password" placeholder="Password" v-model="registerInfo.password" />
                     </div>
-                    <button class="btn solid" @click.prevent="register">注 册</button>
-                    <!-- <p class="social-text">Or Sign up with social platforms</p>
-                    <div class="social-media">
+                    <div class="input-field" prop="repeat-password">
+                        <i class="ri-lock-password-line"></i>
+                        <input type="password" placeholder="repeat Password" v-model="registerInfo.secondPassword" />
+                    </div>
+                    <div class="input-field" prop="phone">
+                        <i class="ri-phone-line"></i>
+                        <input type="text" placeholder="Phone" v-model="registerInfo.phone" />
+                    </div>
+                    <button class="btn solid" @click.prevent="register"
+                        ref="registerBtn"
+                    >
+                    注 册</button>
+                    <p class="social-text">Or Sign up with social platforms</p>
+                    <!-- <div class="social-media">
                         <a href="#" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
                         </a>
@@ -92,19 +102,20 @@ import { useMessage} from "naive-ui";
 import {useRouter} from 'vue-router';
 import {loginVerify , registerVerify} from '@/utils/validate.js'
     const container=ref(null)
-    const loginForm=ref(null)
-    const registerForm=ref(null)
+    const loginBtn = ref(null)
+    const registerBtn = ref(null)
     const store=useStore()
     const router=useRouter()
     const message = useMessage();
     const code = computed(()=> store.state.code)
-    let userInfo=ref({
+    const userInfo=ref({
         username:"",
         password:"",
     })
-    let registerInfo=ref({
+    const registerInfo=ref({
         username:"",
         password:"",
+        secondPassword:"",
         phone:""
     })
 
@@ -120,12 +131,16 @@ import {loginVerify , registerVerify} from '@/utils/validate.js'
             message.error(res);
         }
         else {
+            loginBtn.value.disabled = "true"
             store.dispatch("Login", userInfo.value).then(() => {
                 message.success("登录成功！");
+                
                 router.push(store.state.redirectPath);
         }).catch(e =>{
-            message.error("登录失败:"+e);
+            message.error(e);
             reSet(userInfo)
+        }).finally(()=>{
+            loginBtn.value.disabled = "false"
         })
         }
 
@@ -136,13 +151,16 @@ import {loginVerify , registerVerify} from '@/utils/validate.js'
             message.error(res)
         }
         else {
+            registerBtn.value.disabled="true"
             store.dispatch("Register", registerInfo.value).then((res) => {
                     message.success("注册成功！")
                     signUp()
             }).catch(e => {
-                message.error("注册失败："+e)
+                message.error(e)
+            }).finally(()=>{
+                registerBtn.value.disabled="false"
             })
-            }
+        }
         }  
     function reSet(data)
     {

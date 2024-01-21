@@ -19,16 +19,11 @@ export function getInfo(){
       })
 }
 
-export function register(username,password,phone){
-    const data={
-        username,
-        password,
-        phone
-    }
+export function register(registerInfo){
     return request({
         url: '/user/register',
         method: "post",
-        data : data
+        data : registerInfo
     })
   
 }

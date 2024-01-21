@@ -16,3 +16,14 @@ export function BiSubmit(file,analyzeData){
         data:file
     })
 }
+
+export function getHisChart(page,pageSize){
+    return request({
+        url:'/chart',
+        method:'get',
+        params:{
+            pages:page,
+            pageSize:pageSize
+        }
+    })
+}

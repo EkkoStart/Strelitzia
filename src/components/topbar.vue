@@ -3,28 +3,28 @@
         <a href="#" class="logo">wuzhenlang</a>
         <ul class="links">
             <li class="link">
-                <i class="ri-home-4-line"></i>
-                <span @click="options('First')">首页</span>
+                <i class="topbar-icon ri-home-4-line"></i>
+                <span @click="options('First')" class="topbar-text">首页</span>
             </li>
             <li class="link">
-                <i class="ri-image-line"></i>
-                <span @click="options('Picture')">图片</span>
+                <i class="topbar-icon ri-image-line"></i>
+                <span @click="options('Picture')" class="topbar-text">图片</span>
             </li>
             <li class="link">
-                <i class="ri-book-open-line"></i>
-                <span @click="options('Artcile')">文章</span>
+                <i class="topbar-icon ri-book-open-line"></i>
+                <span @click="options('Artcile')" class="topbar-text">文章</span>
             </li>
             <li class="link">
-                <i class="ri-chat-3-line"></i>
-                <span @click="options('Word')">留言</span>
+                <i class="topbar-icon ri-chat-3-line"></i>
+                <span @click="options('Word')" class="topbar-text">留言</span>
             </li>
             <li class="link">
-                <i class="ri-more-line"></i>
-                <span @click="options('Many')">更多</span>
+                <i class="topbar-icon ri-more-line"></i>
+                <span @click="options('Many')" class="topbar-text">更多</span>
             </li>
         </ul>
         <div class="sign-in" v-if=" avatar ===''">
-            <i class="ri-user-line"></i>
+            <i class="topbar-icon ri-user-line"></i>
             <span class="sign" @click="$router.push('/login')">登录/注册</span>
         </div>
         <div class="logined" v-else>
@@ -59,12 +59,6 @@ import {useStore} from 'vuex'
     })
     function options(option) {
         emit('changeComponents',option)
-        // if (option === 'First') {
-        //     topbar.value.style.removeProperty('background-color');
-        // }
-        // else {
-        //     topbar.value.style.backgroundColor='#c5dddb'
-        // }
     }
     function logOut() {
         store.dispatch('LogOut').then(()=>{

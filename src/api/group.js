@@ -10,3 +10,10 @@ export function getGroupMsg(timestamp){
         }
     })
 }
+
+export function getOnline(){
+    return request({
+        url:'/group/online',
+        method:'get'
+    })
+}

@@ -2,19 +2,34 @@ import request from '@/utils/request'
 
 
 
-export function getOffline(id){
+export function getChat(id,timestamp){
     return request({
-        url:'chat/offline',
+        url:'chat/'+id,
         method:'get',
         params:{
-            uid:id
+            timestamp:timestamp
         }
     })
 }
 
-export function getOnline(){
+export function getChatList(){
     return request({
-        url:'/chat/online',
+        url:'chat/list',
         method:'get'
     })
 }
+
+export function getContact(){
+    return request({
+        url:'contact',
+        method:'get'
+    })
+}
+
+export function getContactInfo(username){
+    return request({
+        url:'/user/'+username,
+        method:'get'
+    })
+}
+

@@ -1,0 +1,25 @@
+.hisChart-wrapper{
+    max-height: 100%;
+}
+.cards{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+.card{
+  transition: .3s ease-in-out;
+}
+.header-extra{
+    display: flex;
+
+}
+.chartName{
+    margin-right: 10px;
+}
+
+.genChart{
+  
+    min-height: 300px;
+    min-width: 300px;
+}

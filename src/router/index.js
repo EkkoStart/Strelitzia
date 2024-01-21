@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory} from 'vue-router'
-
+import store from '../store'
 const routes=[
   
     {
@@ -7,7 +7,17 @@ const routes=[
         name:'首页',
         component: () => import(/* webpackChunkName: "views" */ '@/views/index/index.vue'),
         meta:{
-          KeepAlive:true
+          KeepAlive:true,
+          title:'Strelitzia'
+        }
+      },
+      {
+        path:'/manage',
+        name:"管理后台",
+        component: () => import(/* webpackChunkName: "manager" */ '@/views/manage/manage.vue'),
+        meta:{
+          KeepAlive:false,
+          title:'管理后台'
         }
       },
       {
@@ -15,7 +25,19 @@ const routes=[
         name:'登录',
         component: () => import(/* webpackChunkName: "login" */ '@/views/login/login.vue'),
         meta:{
-          KeepAlive:false
+          KeepAlive:false,
+          title:'登录'
+        },
+        beforeEnter: (to, from, next) => {
+          const redirect = to.query.redirect;
+          let path = '/'
+          if (redirect) {
+            path = redirect
+          }
+          store.dispatch('recordRouter',{
+            path: path
+          })
+          next()
         }
       },
       {
@@ -23,7 +45,8 @@ const routes=[
         name:'聊天室',
         component:()=>import(/* webpackChunkName: "chat" */ '@/views/chat/chat.vue'),
         meta:{
-          KeepAlive:false
+          KeepAlive:false,
+          title:'聊天室'
         } 
       },
       {
@@ -31,7 +54,8 @@ const routes=[
         name:'BI平台',
         component:()=>import(/* webpackChunkName: "bi" */ '@/views/bi/bi.vue'),
         meta:{
-          KeepAlive:false
+          KeepAlive:false,
+          title:'智能分析'
         } 
       },
       {

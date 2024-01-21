@@ -1,18 +1,46 @@
 import request from '@/utils/request'
 
-export function upWord(msg){
-    console.log(msg)
+export function addComment(content){
     return request({
-        url:'/upword',
+        url:'comment/add',
         method:'post',
-        data:msg
+        params:{
+            content:content
+        }
     })
 }
 
-export function getWord(){
+export function getComment(){
     return request({
-        url:'getword',
+        url:'/comment',
         method:'get',
+    })
+}
+
+export function addOrDeleteThumb(commentId){
+    return request({
+        url:'/comment_thumb',
+        method:'post',
+        params:{
+            commentId:commentId
+        }
+    })
+}
+
+export function getThumbStatus(){
+    return request({
+        url:'/comment_thumb',
+        method:'get',
+    })
+}
+
+export function deleteComment(commentId){
+    return request({
+        url:'/comment/delete',
+        method:'post',
+        params:{
+            commentId:commentId
+        }
     })
 }
 

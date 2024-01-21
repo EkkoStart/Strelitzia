@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <!-- <div class="experience">
+        <div class="experience">
             <canvas class="experience-canvas" ref="canvas"></canvas>
         </div>
         <div class="page"  asscroll-container>
@@ -52,11 +52,11 @@
     
                 <div class="section-detail-wrapper">
                     <h3 class="section-heading">哈喽 ^ω^</h3>
-                    <p class="section-text">做这个网站的目的很简单，看到好玩的就想自己实现一下，毕竟真做出来的话心里那是相当有成就感(๑❛ᴗ❛๑)</p>
+                    <!-- <p class="section-text">做这个网站的目的很简单，看到好玩的就想自己实现一下，毕竟真做出来的话心里那是相当有成就感(๑❛ᴗ❛๑)</p>
                     <h3 class="section-heading">个人</h3>
                     <p class="section-text">本人本科在读，死宅一只，平常就喜欢看动漫打游戏。欢迎各位来一起来聊天 (๑¯ω¯๑)</p>
                     <h3 class="section-heading">春风若有怜花意，可否许我再少年。</h3>
-                    <p class="section-text"></p>
+                    <p class="section-text"></p> -->
                 </div>
             </section>
     
@@ -77,9 +77,9 @@
                 </div>
     
                 <div class="section-detail-wrapper">
-                    <h3 class="section-heading">联系方式</h3>
+                    <!-- <h3 class="section-heading">联系方式</h3>
                     <p class="section-text">QQ:1668643648 <br> 微信:wzl18250060295 <br> 电话:18250060295</p>
-                    <img src="@/assets/liu.gif" class="contact-gif">
+                    <img src="@/assets/liu.gif" class="contact-gif"> -->
                 </div>
             </section>
     
@@ -102,16 +102,16 @@
     
                 <div class="section-detail-wrapper">
                     <h3 class="section-heading">最后</h3>
-                    <p class="section-text">个人水平有限，bug还是很多并且还未解决，希望大家能够分享一些经验或者建议，谢谢大火。以后如果学到好玩的还是会分享到这个网站 ಥ_ಥ</p>
+                    <!-- <p class="section-text">个人水平有限，bug还是很多并且还未解决，希望大家能够分享一些经验或者建议，谢谢大火。以后如果学到好玩的还是会分享到这个网站 ಥ_ಥ</p>
                     <h3 class="section-heading">感谢</h3>
-                    <p class="section-text">感谢遇见过的每一个人即使只是同行过那么一小段路也好 愿大家以后在各自的路上勇敢前行散发光亮。祝大家天天开心啊OvO</p>
+                    <p class="section-text">感谢遇见过的每一个人即使只是同行过那么一小段路也好 愿大家以后在各自的路上勇敢前行散发光亮。祝大家天天开心啊OvO</p> -->
                 </div>
                 <a style="bottom:0;position:absolute">湘ICP备2023025198号-1</a>
             </section>
        
             
         </div>
-        </div> -->
+        </div>
     </div>    
   </template>
   
@@ -119,15 +119,15 @@
   import { getCurrentInstance, onMounted } from 'vue';
   import Experience from '@/Experience/Experence'
   import convert from'@/Experience/utils/covertDivsTospans.js'
-    //   onMounted(()=>{
-    //     const proxy=getCurrentInstance()
-    //     const experience = new Experience(proxy.refs.canvas );
-    //     convert(proxy.refs.IntroText)
-    //     convert(proxy.refs.mainTitle)
-    //     convert(proxy.refs.mainDesc)
-    //     convert(proxy.refs.secondTitle)
-    //     convert(proxy.refs.secondDesc)
-    //   })
+      onMounted(()=>{
+        const proxy=getCurrentInstance()
+        const experience = new Experience(proxy.refs.canvas );
+        convert(proxy.refs.IntroText)
+        convert(proxy.refs.mainTitle)
+        convert(proxy.refs.mainDesc)
+        convert(proxy.refs.secondTitle)
+        convert(proxy.refs.secondDesc)
+      })
   
   </script>
   
