@@ -18,15 +18,15 @@
                         <template #placeholder>
                             <div
                             style="
-                                width: 100px;
-                                height: 100px;
+                                width: 500px;
+                                height: 500px;
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
                                 background-color: #0001;
                             "
                             >
-                            Loading
+                            加载中
                             </div>
                         </template>
                     </n-image>

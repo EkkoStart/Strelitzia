@@ -81,7 +81,7 @@ import {formatDate} from '@/utils/validate.js'
         }
     })
     onMounted(async ()=>{
-        if(token){
+        if(token.value){
             await getChatList().then((res)=>{
                 res.data.data.forEach((message)=>{
                      messageList.value.push(message)

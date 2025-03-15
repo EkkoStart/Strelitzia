@@ -1,6 +1,7 @@
 <template>
     <n-config-provider :theme="darkTheme">
         <n-menu
+        ref="contactMenuRef"
         v-model:value="activeKey"
         :options="menuOptions"
         key-field="whateverKey"
@@ -9,22 +10,23 @@
         class="contact-menu"
     />
   </n-config-provider>
-
-
+  <contactInfo  :activeId = "activeKey" :isRequest = "isRequest" @sendMsg="sendMsg"/>
 </template>
 
 <script setup>
-import {NAvatar,NMenu,NP,darkTheme,NConfigProvider, commonDark} from 'naive-ui'
+import {NAvatar,NMenu,NP,darkTheme,NConfigProvider, commonDark, c} from 'naive-ui'
 import { onMounted, ref ,h, nextTick, watchEffect} from "vue";
 import {getContact} from '@/api/chat.js';
-
-    const emit = defineEmits(['showUserInfo'])
+import {getContactRequest} from '@/api/contact'
+import contactInfo from './contactInfo.vue'
+    const emit = defineEmits(['changeActive'])
     const friendList = ref([])
     const addList = ref([])
     const activeKey =ref('')
+    const isRequest = ref(false)
     watchEffect(()=>{
         if(activeKey.value){
-            emit('showUserInfo',activeKey.value)
+            handleClick()
         }
     })
     const menuOptions = ref([
@@ -48,7 +50,13 @@ import {getContact} from '@/api/chat.js';
     onMounted(async ()=>{
         getContact().then(res=>{
             friendList.value= res.data.data
-            updateMenuOptions();
+            updateContactOptions();
+        })  
+        getContactRequest().then(res =>{
+            if(res.data.code == 1){
+                addList.value = res.data.data
+                updateRequestOptions();
+            }
         })
     })
 
@@ -83,16 +91,39 @@ import {getContact} from '@/api/chat.js';
             }
         },username),
         ])
-    }
-    function updateMenuOptions() {
+    } 
+    function updateContactOptions() {
+        if(!friendList.value) return
+
         for(let i=0;i<friendList.value.length;i++)
         {
-            
             menuOptions.value[1].whateverChildren.push({
                 whateverLabel: renderContent(friendList.value[i].avatar,friendList.value[i].username) ,// 假设名称字段为 name
-                whateverKey: friendList.value[i].username, // 假设 ID 字段为 id
+                whateverKey: friendList.value[i].id, // 假设 ID 字段为 id
             })
         }
+    }
+    function updateRequestOptions() {
+        if(!addList.value) return
+
+        for(let i=0;i<addList.value.length;i++)
+        {
+            menuOptions.value[0].whateverChildren.push({
+                whateverLabel: renderContent(addList.value[i].avatar,addList.value[i].username) ,// 假设名称字段为 name
+                whateverKey: addList.value[i].id, // 假设 ID 字段为 id
+            })
+        }
+    }
+    function handleClick(){
+        const flag = addList.value.some(item => item.id === activeKey.value);
+        if(flag){
+            isRequest.value = true
+        }else {
+            isRequest.value = false
+        }
+    }
+    function sendMsg(contactInfo){
+        emit('changeActive',contactInfo);
     }
 </script>
 

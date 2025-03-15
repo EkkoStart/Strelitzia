@@ -1,48 +1,41 @@
 <template>
-    <div class="preloader">
-      <div class="preloader-wrapper">
-          <div class="loading">
-              <div class="circle"></div>
-              <div class="circle"></div>
-              <div class="circle"></div>
-          </div>
-      </div>
+    <div class="preloader" ref="preloader">
+        <div class="preloader-wrapper">
+            <div class="loading">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+        </div>
     </div>
     <div id="container-wrapper">
         <div class="topbar-wrapper" ref="topbar">
-                <Topbar @changeComponents="changeComponents"></Topbar>
+            <Topbar/>
         </div>
         <div class="main-container">
-                <KeepAlive exclude="Word,Upload">
-                    <component :is="option"/>
-                </KeepAlive>
+            <router-view  v-slot="{ Component, route }">
+                <keep-alive >
+                    <component :is="Component" :key="route.fullPath" />
+                </keep-alive>
+            </router-view>
         </div>
     </div>
 </template>
-<script >
-import {defineAsyncComponent,ref} from 'vue'
-export default{
-    components:{
-        Topbar:'@/components/topbar.vue',
-        Picture:defineAsyncComponent(()=>import('@/components/picture/pictures.vue')),
-        Article:defineAsyncComponent(()=>import('@/components/article/article.vue')),
-        First:defineAsyncComponent(()=>import('@/components/index/first.vue')),
-        Word:defineAsyncComponent(()=>import('@/components//word/words.vue')),
-        Upload:defineAsyncComponent(()=>import('@/components/upload.vue')),
-        Usercenter:defineAsyncComponent(()=>import('@/components/usercenter.vue')),
-        Many:defineAsyncComponent(()=>import('@/components/many/many.vue')),
-    },
-    setup(){
-        const option=ref('First')
-        const changeComponents = (newValue)=>{
-            option.value = newValue
+<script setup>
+import {defineAsyncComponent,markRaw,onMounted,ref, watch, watchEffect} from 'vue'
+import { useRoute } from 'vue-router'
+    const Topbar = defineAsyncComponent(()=>import('@/components/topbar.vue'))
+    const route = useRoute()
+    const preloader = ref(null)
+    const topbar = ref(null)
+    let flag = false
+    watchEffect(()=>{
+        if(!flag && preloader.value && topbar.value && route.fullPath == '/index'){
+            flag = true
+            topbar.value.style.opacity = 0
+            preloader.value.style.display = 'inline'
         }
-        return {
-            option,
-            changeComponents,
-        }
-    }
-}    
+    })
 </script>
 <style lang="scss" scoped>
     #container-wrapper{
@@ -50,9 +43,10 @@ export default{
         width: 100%;
     }
     .topbar-wrapper{
-        opacity: 0;
+        opacity: 1;
     }
     .preloader{
+        display: none;
         position: fixed;
         background-color: #FFFFEC;
         width: 100%;

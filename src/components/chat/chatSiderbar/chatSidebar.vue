@@ -1,7 +1,9 @@
 <template>
     <aside class="side-toolbar">
         <div class="avatar">
-            <i class="ri-customer-service-2-fill" v-if="token == undefined"></i>
+            <router-link :to="{ path: 'login' }" class="no-underline" v-if="token == undefined">
+                <span  class="login-text">登录</span>
+            </router-link>
             <img :src="props.avatar" class="avatar-img" v-else>
         </div>
         <div class="tool-icons">

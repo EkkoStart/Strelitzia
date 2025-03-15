@@ -1,6 +1,6 @@
 <template>
     <div>
-user
+pictuer
     </div>
 </template>
 

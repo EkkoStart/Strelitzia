@@ -27,3 +27,10 @@ export function register(registerInfo){
     })
   
 }
+
+export function loginByOther(type){
+    return request({
+        url:'/oauth/login/'+type,
+        method:'get'
+    })
+}

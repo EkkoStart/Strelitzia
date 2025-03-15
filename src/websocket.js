@@ -1,3 +1,5 @@
-const socket = new WebSocket("ws://localhost:8089/ws");
+
+
+const socket = new WebSocket(import.meta.env.VITE_APP_WEBSOCKET);
 
 export default socket

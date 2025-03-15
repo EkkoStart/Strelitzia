@@ -1,17 +1,16 @@
 <template>
     <n-message-provider>
       <n-dialog-provider>
-        <router-view v-slot="{ Component }">
-          <keep-alive>
-            <component :is="Component" />
-          </keep-alive>
-        </router-view>
+        <n-loading-bar-provider>
+          <router-view>
+          </router-view>
+        </n-loading-bar-provider>
       </n-dialog-provider>
     </n-message-provider>
 </template>
 
 <script setup>
-import {NMessageProvider,NDialogProvider} from 'naive-ui'
+import {NMessageProvider,NDialogProvider,NLoadingBarProvider} from 'naive-ui'
 import { useStore } from "vuex";
 </script>
 

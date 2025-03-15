@@ -33,10 +33,7 @@ export default class Preloader extends EventEmitter{
            
             this.tl=new GSAP.timeline()
             this.tl.to('.preloader',{
-                opacity:0,
-                onComplete:(()=>{
-                    document.querySelector('.preloader').classList.add('hidden')
-                })
+                display: 'none'
             })
             if(this.device==='desktop')
             {

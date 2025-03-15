@@ -1,0 +1,31 @@
+.return-card{
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .n-card__content{
+        display: flex;
+    }
+}
+.back{
+    cursor: pointer;
+}
+.add-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+.ls-form-item{
+    flex: 1
+}
+.card{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+.rs-form-item{
+    flex:1
+}
+.n-form-item{
+    --font-size: 14px;
+    margin-bottom: 18px;
+}
+.article-input{
+    width: 320px;
+}

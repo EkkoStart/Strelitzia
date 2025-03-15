@@ -29,10 +29,13 @@
     margin: 1rem;
 
 }
-.add-btn{
+.del-btn,.accept-btn{
     margin-right: 10px;
 }
-.add-btn,.del-btn{
+.add-btn{
+    margin-left: 20px;
+}
+.add-btn,.del-btn,.send-btn,.accept-btn,.reject-btn{
     width: 80px;
     height: 30px;
     border-radius: 15px;

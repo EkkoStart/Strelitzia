@@ -20,6 +20,9 @@ service.interceptors.request.use(config => {
   if (getToken() && !isToken) {
     config.headers['Authorization'] =getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+  config.headers["Access-Control-Allow-Origin"] = '*'
+  config.headers["X-Requested-with"] ='XMLHttpRequest'
+
   if (!isRepeatSubmit && (config.method === 'post' || config.method === 'put')) {
     const requestObj = {
       url: config.url,
@@ -45,8 +48,11 @@ service.interceptors.request.use(config => {
   }
   return config
   },error => {
-    console.log(error)
-    Promise.reject(error)
+    if (typeof error.response === 'undefined') {
+      window.location = 'login'
+    } else {
+      return Promise.reject(error)
+    }
 })
 
 export default service

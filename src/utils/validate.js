@@ -20,6 +20,15 @@ export function changeISOToformatDate(isoString){
   return formattedDateTime
 }
 
+export function getDay(isoString){
+  const date = new Date(isoString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const formattedDateTime = `${year}-${month}-${day}`;
+  return formattedDateTime
+}
+
 export function loginVerify(userInfo){
     const username = userInfo.username;
     const password = userInfo.password;

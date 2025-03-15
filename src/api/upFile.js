@@ -8,7 +8,7 @@ export function getCount(){
 }
 export function upFile(data,type){
     return request({
-        url:'/up'+type,
+        url:'pic/upload?type='+type,
         method:'post',
         headers:{
             'Content-Type': 'multipart/form-data'

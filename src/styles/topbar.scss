@@ -5,7 +5,7 @@
     align-items: center;
     transition: .3s;
     height: 60px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .logo {
@@ -50,6 +50,7 @@
     color:var(--color-text);
 }
 .sign-in  .sign{
+    color: var(--color-text);
     font-size: 1rem;
     cursor: pointer;
     list-style: none;
@@ -100,6 +101,9 @@
     text-align: center;
     border: .5px solid black;
 }
+.no-underline {
+    text-decoration: none !important;
+  }
 @media (max-width:850px) {
     .logo {
         display: none;

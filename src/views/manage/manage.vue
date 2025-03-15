@@ -1,14 +1,14 @@
 <template>
     <div class="manage-wrapper">
-        <div class="sidebar-wrapper">
-            <nav class="sidebar locked">
+        <div class="siderbar-wrapper">
+        <n-scrollbar trigger="hover" style="max-height: 100vh">
+            <nav class="sidebar locked" ref="siderbarRef">
                 <div class="logo_items flex">
                     <span class="nav_image">
-                        <img src="" alt="logo_img">
+                        <img :src=logo
+                        alt="logo_img">
                     </span>
                     <span class="logo_name">Strelitzia</span>
-                    <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
-                    <i class="bx bx-x" id="sidebar-close"></i>
                 </div>
                 <div class="menu_container">
                     <div class="menu_items">
@@ -17,16 +17,16 @@
                                 <span class="title">Dashboard</span>
                                 <span class="line"></span>
                             </div>
-                            <li class="item" properties="AnalyzeVue">
+                            <li class="item" properties="analyze">
                                 <div href="#" class="link flex">
-                                <i class="bx bx-home-alt"></i>
-                                <span>分析页</span>
+                                    <i class="ri-bar-chart-fill"></i>
+                                    <span class="name">分析页</span>
                                 </div>
                             </li>
-                            <li class="item" properties="ControlVue">
+                            <li class="item" properties="monitor">
                                 <div href="#" class="link flex">
-                                <i class="bx bx-grid-alt"></i>
-                                <span>监控页</span>
+                                    <i class="ri-speed-up-line"></i>
+                                    <span class="name">监控页</span>
                                 </div>
                             </li>
                         </ul>
@@ -36,22 +36,22 @@
                                 <span class="title">Editor</span>
                                 <span class="line"></span>
                             </div>
-                            <li class="item" properties="UserManageVue">
+                            <li class="item" properties="user">
                                 <div href="#" class="link flex">
-                                <i class="bx bxs-magic-wand"></i>
-                                <span>用户管理</span>
+                                    <i class="ri-user-settings-line"></i>
+                                    <span class="name">用户管理</span>
                                 </div>
                             </li>
-                            <li class="item" properties="ArticleVue">
+                            <li class="item" properties="articleManage">
                                 <div href="#" class="link flex">
-                                <i class="bx bx-folder"></i>
-                                <span>文章管理</span>
+                                    <i class="ri-article-line"></i>
+                                    <span class="name">文章管理</span>
                                 </div>
                             </li>
-                            <li class="item" properties="PictureVue">
+                            <li class="item" properties="picture">
                                 <div href="#" class="link flex">
-                                <i class="bx bx-cloud-upload"></i>
-                                <span>图片管理</span>
+                                    <i class="ri-image-edit-line"></i>
+                                    <span class="name">图片管理</span>
                                 </div>
                             </li>
                         </ul>
@@ -62,74 +62,88 @@
                                 <span class="line"></span>
                             </div>
                             
-                            <li class="item" properties="ApiVue">
+                            <li class="item" properties="internal">
                                 <div href="#" class="link flex">
-                                <i class="bx bx-flag"></i>
-                                <span>接口管理</span>
+                                    <i class="ri-fingerprint-line"></i>
+                                    <span class="name">接口管理</span>
                                 </div>
                             </li>
-                            <li class="item" properties="DataBaseVue">
+                            <li class="item" properties="data">
                                 <div href="#" class="link flex">
-                                    <i class="bx bx-award"></i>
-                                    <span>数据库管理</span>
+                                    <i class="ri-database-2-line"></i>
+                                    <span class="name">数据库管理</span>
                                 </div>
                             </li>
-                            <li class="item" properties="SystemVue">
+                            <li class="item" properties="system">
                                 <div href="#" class="link flex">
-                                <i class="bx bx-cog"></i>
-                                <span>系统管理</span>
+                                    <i class="ri-shield-line"></i>
+                                    <span class="name">系统管理</span>
                                 </div>
                             </li>
                         </ul>
                 </div>
                 <div class="sidebar_profile flex">
                     <span class="nav_image">
-                    <img src="" alt="profile_img">
+                    <img src="https://wuzhenlang.oss-cn-beijing.aliyuncs.com/ABAA8002075F5FABF2EB84B531FF309E.jpg" alt="profile_img">
                     </span>
                     <div class="data_text">
-                    <span class="name">David Oliva</span>
-                    <span class="email">david@gmail.com</span>
+                    <p class="name">wzl</p>
+                    <span class="email">1668643648@qq.com</span>
                     </div>
                 </div>
                 </div>
             </nav>
+        </n-scrollbar>
         </div>
         <div class="container-wrapper">
             <div class="navbar-wrapper">
-                <NavBarVue :componentInfo= "ComponentInfo"/>
+                <NavBarVue @changeSiderbar ="change"/>
             </div>
-            <div class="content-wrapper">
-                <component :is="nowComponent"/>
-            </div>
+                <n-scrollbar trigger="hover" style="max-height: 90vh">
+                <div class="content-wrapper">
+                    <router-view  v-slot="{ Component, route }">
+                        <keep-alive >
+                            <component :is="Component" :key="route.fullPath" />
+                        </keep-alive>
+                    </router-view>
+                </div>
+            </n-scrollbar>
         </div>
 
     </div>
 </template>
 
 <script setup>
-import {defineAsyncComponent, ref,markRaw, onMounted} from 'vue'
+import {NScrollbar} from 'naive-ui'
+import {defineAsyncComponent, ref,markRaw, onMounted, watchEffect, computed} from 'vue'
 import NavBarVue from '@/components/manage/navbar/index.vue' 
-
-    const ArticleVue = defineAsyncComponent(()=>import('@/components/manage/article/index.vue'))
-    const PictureVue = defineAsyncComponent(()=> import('@/components/manage/picture/index.vue'))
-    const ComponentMap = {
-        'ArticleVue': markRaw(ArticleVue),
-        'PictureVue': markRaw(PictureVue)
-    }
-    const ComponentInfo = ref('ArticleVue')
-    const nowComponent = ref(ComponentMap['ArticleVue'])
+import { useRoute, useRouter } from 'vue-router'
+    const router = useRouter()
+    const route = useRoute()
+    const siderbarRef = ref(null)
+    const flag = ref(true)
     const itemList = ref()
+    const logo = "https://wuzhenlang.oss-cn-beijing.aliyuncs.com/ABAA8002075F5FABF2EB84B531FF309E.jpg" 
     onMounted(()=>{
         itemList.value = document.querySelectorAll('.item')
-        console.log(typeof(nowComponent.value))
         addEvent()
     })
+    function change(){
+        flag.value = !flag.value
+        if(!flag.value){
+            siderbarRef.value.classList.add('close')
+        }
+        else {
+            siderbarRef.value.classList.remove('close')
+        }
+    }
     function addEvent(){
         itemList.value.forEach(item => item.addEventListener('click',()=>{
-            nowComponent.value = ComponentMap[item.getAttribute('properties')]
-            ComponentInfo.value = item.getAttribute('properties')
+            console.log(item.getAttribute("properties"))
+            router.push(`/manage/${item.getAttribute("properties")}`)
         }))
     }
+
 </script>
 
 <style lang="scss" scoped>

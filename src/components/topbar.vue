@@ -1,39 +1,55 @@
 <template>
-    <div id="topbar-container" ref="topbar" >
+    <div id="topbar-container">
         <a href="#" class="logo">wuzhenlang</a>
         <ul class="links">
             <li class="link">
-                <i class="topbar-icon ri-home-4-line"></i>
-                <span @click="options('First')" class="topbar-text">首页</span>
+                <router-link :to="{ path: '/index' }" class="no-underline">
+                    <i class="topbar-icon ri-home-4-line"></i>
+                    <span class="topbar-text">首页</span>
+                </router-link>
             </li>
             <li class="link">
-                <i class="topbar-icon ri-image-line"></i>
-                <span @click="options('Picture')" class="topbar-text">图片</span>
+                <router-link :to="{ path: '/picture' }" class="no-underline">
+                    <i class="topbar-icon ri-image-line"></i>
+                    <span class="topbar-text">图片</span>
+                </router-link>
             </li>
             <li class="link">
-                <i class="topbar-icon ri-book-open-line"></i>
-                <span @click="options('Artcile')" class="topbar-text">文章</span>
+                <router-link :to="{ path: '/article' }" class="no-underline">
+                    <i class="topbar-icon ri-book-open-line"></i>
+                    <span class="topbar-text">文章</span>
+                </router-link>
             </li>
             <li class="link">
-                <i class="topbar-icon ri-chat-3-line"></i>
-                <span @click="options('Word')" class="topbar-text">留言</span>
+                <router-link :to="{ path: '/word' }" class="no-underline">
+                    <i class="topbar-icon ri-chat-3-line"></i>
+                    <span class="topbar-text">留言</span>
+                </router-link>
             </li>
             <li class="link">
-                <i class="topbar-icon ri-more-line"></i>
-                <span @click="options('Many')" class="topbar-text">更多</span>
+                <router-link :to="{ path: '/many' }" class="no-underline">
+                    <i class="topbar-icon ri-more-line"></i>
+                    <span class="topbar-text">更多</span>
+                </router-link>
             </li>
         </ul>
         <div class="sign-in" v-if=" avatar ===''">
             <i class="topbar-icon ri-user-line"></i>
-            <span class="sign" @click="$router.push('/login')">登录/注册</span>
+            <router-link :to="{ path: '/login' }" class="no-underline">
+                <span class="sign">登录/注册</span>
+            </router-link>
         </div>
         <div class="logined" v-else>
             <img :src="avatar" alt="" class="head">
             <div class="menu" style="z-index: 55;">
                 <ul class="infomation">
-                    <li @click="options('usercenter')">账号信息</li>
+                    <router-link :to="{ path: '/picture' }" class="no-underline">
+                        <li>账号信息</li>
+                    </router-link>
                     <li>我的收藏</li>
-                    <li @click="options('upload')">图片上传</li>
+                    <router-link :to="{ path: '/picture' }" class="no-underline">
+                        <li >图片上传</li>
+                    </router-link>
                     <li @click="logOut">退出登录</li>
                 </ul>
             </div>
@@ -44,12 +60,9 @@
 <script setup>
 import { computed, onBeforeMount, onMounted, ref} from "vue"
 import {useStore} from 'vuex'
-    const emit = defineEmits(['changeComponents'])
     const store = useStore()
-    const topbar = ref(null)
     let allLink = ref('')
     let avatar = computed(()=>store.state.avatar)
-
     onMounted(()=>{
         allLink=document.querySelectorAll('.link')
         allLink.forEach(link => link.addEventListener('click', () => {
@@ -57,9 +70,6 @@ import {useStore} from 'vuex'
             link.classList.add('active');
         }))
     })
-    function options(option) {
-        emit('changeComponents',option)
-    }
     function logOut() {
         store.dispatch('LogOut').then(()=>{
             location.reload()

@@ -1,7 +1,5 @@
 import request from '@/utils/request'
 
-
-
 export function getChat(id,timestamp){
     return request({
         url:'chat/'+id,
@@ -28,8 +26,20 @@ export function getContact(){
 
 export function getContactInfo(username){
     return request({
-        url:'/user/'+username,
-        method:'get'
+        url:'/user/search',
+        method:'get',
+        params:{
+            username:username
+        }
     })
 }
 
+export function getContactInfoById(id){
+    return request({
+        url:'/user/search',
+        method:'get',
+        params:{
+           id:id
+        }
+    })
+}

@@ -4,7 +4,17 @@ import {getToken} from '@/utils/auth.js'
 import { setToken } from './utils/auth';
 import { useMessage } from 'naive-ui'
 
-const whiteList = ['/login','/index','/chat','/']
+const whiteList = [
+    '/',
+    '/login',
+    '/index',
+    '/picture',
+    '/article/index',
+    '/article/read',
+    '/word',
+    '/many',
+    '/chat',
+]
 router.beforeEach(async (to,from,next)=>{
 
     const hasToken = getToken() 
@@ -28,8 +38,8 @@ router.beforeEach(async (to,from,next)=>{
             }
         }
     } else {
-        if (whiteList.indexOf(to.path) !== -1) {  
-            next() 
+        if (whiteList.indexOf(to.path) !== -1) {
+                next();
         } else {  
             next(`/login?redirect=${to.path}`) 
         }

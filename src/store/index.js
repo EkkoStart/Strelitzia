@@ -10,8 +10,7 @@ const defaultState = {
   token: getToken(),
   code: '',
   funs: 0,
-  pictures: 0,
-  redirectPath:'/'
+  pictures: 0
 }
 
 // Create a new store instance.
@@ -41,9 +40,6 @@ export default createStore({
     SET_PICTURES(state,pCount){
       state.pictures = pCount;
     },
-    SET_REDIRECTPATH(state,path){
-      state.redirectPath = path;
-    }
   },
   actions: {
     Login({commit}, userInfo) {
@@ -135,9 +131,6 @@ export default createStore({
         })
       })
     },
-    recordRouter({commit},path){
-      commit('SET_REDIRECTPATH',path)
-    }
   },
  
   getters: {

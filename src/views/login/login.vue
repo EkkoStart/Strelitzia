@@ -18,16 +18,16 @@
                         登 录</button>
                     <p class="social-text">其他登录方式</p>
                     <div class="social-media">
-                        <a href="#" class="social-icon">
+                        <a class="social-icon" @click="loginBy('qq')">
                             <i class="ri-qq-line"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        <a href="#" class="social-icon"  @click="loginBy('wechat')">
                             <i class="ri-wechat-2-line"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        <a href="#" class="social-icon"  @click="loginBy('GITEE')">
                             <i class="ri-github-line"></i>
                         </a>
-                        <a href="#" class="social-icon">
+                        <a href="#" class="social-icon"  @click="loginBy('sms')">
                             <i class="ri-chat-3-line"></i>
                         </a>
                     </div>
@@ -54,7 +54,7 @@
                         ref="registerBtn"
                     >
                     注 册</button>
-                    <p class="social-text">Or Sign up with social platforms</p>
+                    <!-- <p class="social-text">Or Sign up with social platforms</p> -->
                     <!-- <div class="social-media">
                         <a href="#" class="social-icon">
                             <i class="fab fa-facebook-f"></i>
@@ -96,15 +96,19 @@
 </template>
 
 <script setup>
+
 import {ref, computed, onMounted} from 'vue'; 
 import {useStore} from 'vuex'
 import { useMessage} from "naive-ui";
-import {useRouter} from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import {loginVerify , registerVerify} from '@/utils/validate.js'
+import {loginByOther} from '@/api/login'
+import axios from 'axios'
     const container=ref(null)
     const loginBtn = ref(null)
     const registerBtn = ref(null)
     const store=useStore()
+    const route = useRoute()
     const router=useRouter()
     const message = useMessage();
     const code = computed(()=> store.state.code)
@@ -126,6 +130,7 @@ import {loginVerify , registerVerify} from '@/utils/validate.js'
     })
 
     function handleLogin() {
+        const redirectPath = route.query.redirect ? route.query.redirect: '/'
         const res = loginVerify(userInfo.value)
         if(res != "success"){
             message.error(res);
@@ -134,8 +139,7 @@ import {loginVerify , registerVerify} from '@/utils/validate.js'
             loginBtn.value.disabled = "true"
             store.dispatch("Login", userInfo.value).then(() => {
                 message.success("登录成功！");
-                
-                router.push(store.state.redirectPath);
+                router.push(redirectPath)
         }).catch(e =>{
             message.error(e);
             reSet(userInfo)
@@ -145,6 +149,16 @@ import {loginVerify , registerVerify} from '@/utils/validate.js'
         }
 
     }   
+
+    function loginBy(type){
+
+        if(type == "qq"){
+    
+        }
+
+        window.location.href = import.meta.env.VITE_APP_SSO_REQ+type;
+    }
+
     function register() {
         const res = registerVerify(registerInfo.value)
         if(res != "success"){

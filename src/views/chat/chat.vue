@@ -11,10 +11,10 @@
             <chatBox v-show="nowValue == 'contact'" :activeId = "activeId" :type = "type" :activeName = "activeName" :newMessage="message"/>
             <!-- 在线人数 -->
             <chatList v-show="nowValue == 'contact'" :onlineMessage = "onlineMessage"/>
+
             <div class="contact-wrapper"  v-show="nowValue == 'friend'">
                 <!-- 联系人列表 -->
-                <friend  @showUserInfo = "showUserInfo"/>                
-                <contactInfo  :activeName = "activeKey"/>
+                <friend  @changeActive = "changeActive"/>                
             </div>
 
         </div>
@@ -28,7 +28,6 @@ import chatMessage from '../../components/chat/chatMessage/chatMessage.vue'
 import chatBox from '../../components/chat/chatBox/chatBox.vue'
 import chatList from '../../components/chat/chatList/chatList.vue'
 import friend from '../../components/chat/contact/friend.vue'
-import contactInfo from '../../components/chat/contact/contactInfo.vue'
 import { useStore } from 'vuex'
 import { computed, onBeforeMount, onMounted, ref, watchEffect } from 'vue'
 import AuthReq from '@/message/AuthReq.js'
@@ -91,17 +90,16 @@ import socket from '@/websocket.js'
     })
     socket.addEventListener('error',(e)=>{
         console.log("连接发生错误："+e)
+        
     })
     socket.addEventListener('close',(e)=>{
         console.log("连接关闭");
     })
     function changeActive(activeInfo){
+        nowValue.value = 'contact'
         activeId.value = activeInfo.id
         activeName.value = activeInfo.name;
         type.value = activeInfo.type
-    }
-    function showUserInfo(values){
-        activeKey.value = values
     }
     function heartRequest(){
         setInterval(() => {
